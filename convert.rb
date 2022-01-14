@@ -17,7 +17,8 @@ Dir.chdir('/home/conversion/image')
 
 
 # Prevent multiple instances of the script from being run.
-lockfile = Tempfile.new('lockfile')
+exit if File.exist?('lockfile')
+File.open('lockfile', 'w+')
 
 
 
@@ -60,5 +61,4 @@ Dir["#{dir_todo}/**/*"].reverse_each { |d| Dir.rmdir(d) if Dir.empty?(d) }
 
 
 
-lockfile.close
-lockfile.unlink
+File.delete('lockfile')
